@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "BlueprintCompiler",
+	"Description": "Compilation of all blueprints of a project with one button",
+	"Category": "Other",
+	"CreatedBy": "Wellsaik",
+	"CreatedByURL": "https://github.com/ArtemIyX",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "BlueprintCompiler",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}
