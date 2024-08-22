@@ -7,6 +7,6 @@ This often happens if the project is huge and the engine does not even show erro
 
 > You can simply compile the project in Shipping Build in case of strange behavior of Blueprints, but it may take a lot of time.
 ## Usage
-The plugin allows you to compile all blueprints in the main content folder of your project in one click with all errors and logs displayed. 
+The plugin allows you to compile all blueprints in **project** in one click with all errors and logs displayed. 
 
 ![Screenshot2](https://cdn.discordapp.com/attachments/1026083841791754250/1276133073095884822/image.png?ex=66c86b0a&is=66c7198a&hm=460d60fdee4f94615499c3fccf4bfcd051772f87e6f75d5d456ad7beea2b405c&)
