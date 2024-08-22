@@ -3,6 +3,7 @@
 #include "BlueprintCompiler.h"
 #include "BlueprintCompilerStyle.h"
 #include "BlueprintCompilerCommands.h"
+#include "BlueprintCompilerLib.h"
 #include "LevelEditor.h"
 #include "Widgets/Docking/SDockTab.h"
 #include "Widgets/Layout/SBox.h"
@@ -54,22 +55,46 @@ void FBlueprintCompilerModule::ShutdownModule()
 
 TSharedRef<SDockTab> FBlueprintCompilerModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	FText WidgetText = FText::Format(
-		LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-		FText::FromString(TEXT("FBlueprintCompilerModule::OnSpawnPluginTab")),
-		FText::FromString(TEXT("BlueprintCompiler.cpp"))
-		);
-
+	auto OnCompileBlueprintsClicked = [this]() mutable -> FReply
+	{
+		TArray<FString> path = UBlueprintCompilerLib::GetAllBlueprintPaths();
+		FString res = UBlueprintCompilerLib::CompileBlueprints(path);
+		this->TextBoxContainer->ClearChildren();
+		TextBoxContainer->AddSlot()
+				.AutoHeight()
+				.Padding(2.0f)
+				[
+					SNew(STextBlock)
+					.Text(FText::FromString(*res))
+				];
+		return FReply::Handled();
+	};
+	
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
 		[
-			// Put your tab content here!
-			SNew(SBox)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
+			SNew(SVerticalBox)
+
+			// Кнопка
+			+ SVerticalBox::Slot()
+			.AutoHeight()
+			.Padding(10.0f)
 			[
-				SNew(STextBlock)
-				.Text(WidgetText)
+				SNew(SButton)
+				.Text(FText::FromString(TEXT("Compile Blueprints")))
+				.OnClicked_Lambda(OnCompileBlueprintsClicked)
+			]
+
+			// Текстовое поле
+			+ SVerticalBox::Slot()
+			.FillHeight(1.0f)
+			.Padding(10.0f)
+			[
+				SNew(SScrollBox)
+				+ SScrollBox::Slot()
+				[
+					SAssignNew(TextBoxContainer, SVerticalBox)
+				]
 			]
 		];
 }
